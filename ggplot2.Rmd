@@ -1,0 +1,54 @@
+---
+title: "Airbnb ggplot2"
+output: ggplot2_notebook
+---
+
+```{r}
+# wczytanie danych
+airbnb <- read.table("/Users/zuzapiekarczyk/Desktop/AZSD/Programy/airbnb_session_data.txt", header=TRUE, sep="|",dec=".")
+```
+
+```{r}
+# zobaczenie jak wygląda zbiór
+view(airbnb)
+summary(airbnb)
+names(airbnb)
+```
+
+```{r}
+# instalowanie bibliotek
+install.packages("ggplot2")
+install.packages("dplyr")
+```
+
+```{r}
+# dodanie bibliotek
+library(ggplot2)
+library(dplyr)
+```
+
+```{r}
+# ggplot2 gradient
+count %>%
+  ggplot(aes(x= reorder(dim_device_app_combo, -n), y = n)) +
+    #geom_bar(stat="identity", fill="white", alpha=.6, width=.4) +
+    geom_col(aes(fill = n)) +
+    scale_fill_gradient2(name = "Liczebność", midpoint = 700, low = "#1E90FF", mid = "#957dad", high = "#8F529E") +
+    coord_flip() +
+    labs(title = "Liczebność używanych urządzeń i aplikacji w Airbnb",
+         x = "Nazwa urządzenia i aplikacji", 
+         y = "Liczebność urządzeń i aplikacji") +
+    theme_minimal()
+```
+
+```{r}
+# ggplot2 rainbow
+count %>%
+  ggplot(aes(x= reorder(dim_device_app_combo, -n), y = n, color = dim_device_app_combo)) +
+    geom_bar(stat="identity", fill="white", alpha=.6, width=.4) +
+    coord_flip() +
+    labs(title = "Liczebność używanych urządzeń i aplikacji w Airbnb",
+         x = "Nazwa urządzenia i aplikacji", 
+         y = "Liczebność urządzeń i aplikacji") +
+    theme_minimal()
+```
